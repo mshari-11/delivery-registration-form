@@ -1,0 +1,15 @@
+{
+  "name": "delivery-registration-form",
+  "version": "1.0.0",
+  "description": "نموذج تسجيل مناديب التوصيل - شركة الخط الأول",
+  "main": "index.html",
+  "scripts": {
+    "build": "echo 'Build complete'",
+    "start": "serve .",
+    "dev": "serve ."
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}

@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, minimum-scale=1.0, maximum-scale=3.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>نموذج تسجيل مناديب التوصيل - شركة الخط الأول</title>
+    <style>
+        /* إعدادات الطباعة المحسنة */
+        @page {
+            size: A4;
+            margin: 5mm;
+        }
+        
+        /* إعدادات الطباعة - A4 بدون هوامش */
+        @media print {
+            @page {
+                size: A4;
+                margin: 0;
+                padding: 0;
+            }
+            
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            body {
+                margin: 0 !important;
+                padding: 5mm !important;
+                font-size: 9px !important;
+                line-height: 1.2 !important;
+                background: white !important;
+            }
+            
+            .container {
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+            
+            .form-header {
+                padding: 8px !important;
+                margin-bottom: 5px !important;
+                background: #1e3a8a !important;
+                color: white !important;
+                border-radius: 0 !important;
+                page-break-inside: avoid;
+            }
+            
+            .form-title {
+                font-size: 14px !important;
+                margin-bottom: 3px !important;
+            }
+            
+            .form-subtitle {
+                font-size: 10px !important;
+            }
+            
+            .company-logo {
+                width: 30px !important;
+                height: 30px !important;
+                margin: 0 auto 5px !important;
+            }
+            
+            .main-form {
+                padding: 5px !important;
+                box-shadow: none !important;
+                border-radius: 0 !important;
+            }
+            
+            .section {
+                margin-bottom: 8px !important;
+                padding: 6px !important;
+                border: 1px solid #ccc !important;
+                border-radius: 3px !important;
+                background: #f9f9f9 !important;
+                page-break-inside: avoid;
+            }
+            
+            .section-title {
+                font-size: 11px !important;
+                margin-bottom: 5px !important;
+                padding-bottom: 2px !important;
+                border-bottom: 1px solid #666 !important;
+            }
+        }
+        
+        /* التصميم العام */
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --warning-color: #f59e0b;
+            --text-color: #1f2937;
+            --border-color: #d1d5db;
+            --bg-color: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', 'Tahoma', 'Geneva', 'Verdana', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: var(--text-color);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+        }
+        
+        /* هيدر الشركة مع اللوغو */
+        .company-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .company-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="1" fill="rgba(255,255,255,0.1)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        .company-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 2;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            fill: var(--primary-color);
+        }
+        
+        .company-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .company-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .form-title {
+            font-size: 24px;
+            color: var(--primary-color);
+            text-align: center;
+            margin: 30px 0;
+            font-weight: bold;
+        }
+        
+        /* أقسام النموذج */
+        .main-form {
+            padding: 40px;
+        }
+        
+        .section {
+            background: var(--bg-color);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+        
+        .section:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 5px 20px rgba(30, 58, 138, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+        }
+        
+        .section-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        /* حقول الإدخال */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+        
+        .required {
+            color: var(--danger-color);
+        }
+        
+        /* أزرار */
+        .btn {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(30, 58, 138, 0.3);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, var(--success-color) 0%, #059669 100%);
+            margin-top: 30px;
+        }
+        
+        /* تصميم متجاوب */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-form {
+                padding: 20px;
+            }
+            
+            .company-header {
+                padding: 20px;
+            }
+            
+            .company-title {
+                font-size: 22px;
+            }
+            
+            .company-subtitle {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- هيدر الشركة مع اللوغو -->
+        <div class="company-header">
+            <div class="company-logo">
+                <svg class="logo-icon" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                    <path d="M8 11l2 2 4-4"/>
+                </svg>
+            </div>
+            <h1 class="company-title">شركة الخط الأول للخدمات اللوجستية</h1>
+            <p class="company-subtitle">الريادة في خدمات التوصيل والنقل</p>
+        </div>
+        
+        <div class="main-form">
+            <h2 class="form-title">نموذج تسجيل مناديب التوصيل</h2>
+            
+            <!-- نموذج التسجيل الكامل -->
+            <form id="deliveryForm" action="/submit" method="POST" enctype="multipart/form-data">
+                
+                <!-- قسم اختيار التطبيق -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">اختيار التطبيق والشروط الخاصة</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>اختر التطبيق <span class="required">*</span></label>
+                        <select id="appSelect" name="application" required>
+                            <option value="">-- اختر التطبيق --</option>
+                            <option value="kita-shift">كيتا (Kita) - نظام دوام</option>
+                            <option value="kita-demand">كيتا (Kita) - نظام بالطلب</option>
+                            <option value="jahez">جاهز (Jahez)</option>
+                            <option value="thechefz">ذا شفز (The Chefz)</option>
+                            <option value="mrsool">مرسول (Marsool)</option>
+                            <option value="tuyodelivery">تويو للتوصيل (Tuyo Delivery)</option>
+                            <option value="careem">كريم فود (Careem Food)</option>
+                            <option value="noon">نون فود (Noon Food)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- عرض تفاصيل التطبيق -->
+                    <div id="appDetails" style="display: none;"></div>
+                </div>
+                
+                <!-- البيانات الشخصية -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">البيانات الشخصية</h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>الاسم الكامل <span class="required">*</span></label>
+                        <input type="text" name="fullName" required placeholder="أدخل الاسم الكامل">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>رقم الجوال <span class="required">*</span></label>
+                        <input type="tel" name="phone" required placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>البريد الإلكتروني <span class="required">*</span></label>
+                        <input type="email" name="email" required placeholder="example@email.com">
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn submit-btn">إرسال التسجيل</button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        // عرض تفاصيل التطبيق عند الاختيار
+        function showAppDetails() {
+            const app = document.getElementById('appSelect').value;
+            const detailsContainer = document.getElementById('appDetails');
+            
+            let details = '';
+            
+            switch(app) {
+                case 'kita-shift':
+                    details = `
+                        <div style="background: #e6f3ff; border: 2px solid #0066cc; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #0066cc; margin-bottom: 15px;">🏢 شروط كيتا - نظام دوام:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ دوام ثابت 10 ساعات يومياً</li>
+                                <li>✅ فترات العمل: الغداء (11ص-3م) والعشاء (7م-11م)</li>
+                                <li>✅ 26 يوم عمل بالشهر كحد أدنى</li>
+                                <li>✅ رسوم التوصيل: 10% من قيمة التسعيرة</li>
+                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'kita-demand':
+                    details = `
+                        <div style="background: #e6f3ff; border: 2px solid #0066cc; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #0066cc; margin-bottom: 15px;">📱 شروط كيتا - نظام بالطلب:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ مرونة في اختيار ساعات العمل</li>
+                                <li>✅ لا تقل عن 10 ساعات يومياً</li>
+                                <li>✅ عدم رفض الطلبات لمدة 10 ساعات</li>
+                                <li>✅ رسوم التوصيل: 10% من قيمة التسعيرة</li>
+                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'jahez':
+                    details = `
+                        <div style="background: #fff3e0; border: 2px solid #ff9800; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #ff9800; margin-bottom: 15px;">🍔 شروط جاهز:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ العمولة: 2 ريال لكل طلب</li>
+                                <li>✅ تسليم المبالغ عند 2,000 ريال</li>
+                                <li>✅ رسوم الاشتراك: 200 ريال</li>
+                                <li>✅ مرونة في اختيار الطلبات</li>
+                                <li>⚠️ قيمة السند لأمر: 2,000 ريال</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'thechefz':
+                    details = `
+                        <div style="background: #f3e5f5; border: 2px solid #9c27b0; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #9c27b0; margin-bottom: 15px;">👨‍🍳 شروط ذا شفز:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ العمولة: 2 ريال لكل طلب</li>
+                                <li>✅ تسليم المبالغ عند 5,000 ريال</li>
+                                <li>✅ 8 ساعات عمل يومياً، 26 يوم بالشهر</li>
+                                <li>✅ التزام بفتح التطبيق تلقائياً</li>
+                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'mrsool':
+                    details = `
+                        <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #4caf50; margin-bottom: 15px;">🚚 شروط مرسول:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ 260 طلب = 3,850 ريال + إنترنت</li>
+                                <li>✅ 390 طلب = 6,000 ريال + إنترنت</li>
+                                <li>✅ 450 طلب = 7,000 ريال + إنترنت</li>
+                                <li>🎉 <strong>لا يوجد سند لأمر</strong></li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'tuyodelivery':
+                    details = `
+                        <div style="background: #fce4ec; border: 2px solid #e91e63; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #e91e63; margin-bottom: 15px;">🏍️ شروط تويو للتوصيل:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ العمولة: 2 ريال لكل طلب</li>
+                                <li>✅ تسليم المبالغ عند 5,000 ريال</li>
+                                <li>✅ 25 يوم عمل بالشهر كحد أدنى</li>
+                                <li>✅ التقييم المطلوب: 4+ نجوم</li>
+                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                default:
+                    details = '';
+            }
+            
+            if(app) {
+                detailsContainer.innerHTML = details;
+                detailsContainer.style.display = 'block';
+            } else {
+                detailsContainer.style.display = 'none';
+            }
+        }
+        
+        // ربط الدالة بقائمة التطبيقات
+        document.getElementById('appSelect').addEventListener('change', showAppDetails);
+        
+        // إرسال النموذج
+        document.getElementById('deliveryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            
+            try {
+                const response = await fetch('/submit', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    alert('🎉 تم إرسال التسجيل بنجاح! سيتم التواصل معك قريباً.');
+                    e.target.reset();
+                    document.getElementById('appDetails').style.display = 'none';
+                } else {
+                    alert('❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ حدث خطأ في الاتصال. تأكد من اتصالك بالإنترنت.');
+            }
+        });
+    </script>
+</body>
+</html>
