@@ -444,6 +444,97 @@
                 padding: 20px;
             }
         }
+
+        /* إعدادات النظام */
+        .settings-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .settings-section h3 {
+            margin-bottom: 20px;
+            color: #1e293b;
+            font-size: 18px;
+            font-weight: 600;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            background: white;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #3b82f6;
+        }
+
+        .settings-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .api-test-result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+
+        .api-test-result.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+        }
+
+        .api-test-result.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+
+        .api-test-result.testing {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fcd34d;
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
     </style>
 </head>
 <body>
@@ -465,6 +556,7 @@
                     <div class="user-name" id="userName">المدير</div>
                     <div class="user-role" id="userRole">مدير النظام</div>
                 </div>
+                <button class="logout-btn" onclick="openSettings()" style="margin-left: 10px;">⚙️ الإعدادات</button>
                 <button class="logout-btn" onclick="logout()">تسجيل الخروج</button>
             </div>
         </div>
@@ -529,6 +621,96 @@
         </div>
     </div>
 
+    <!-- نافذة الإعدادات -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚙️ إعدادات النظام</h2>
+                <span class="close" onclick="closeSettingsModal()">&times;</span>
+            </div>
+            <div id="settingsBody">
+                <div class="settings-section">
+                    <h3>🔌 إعدادات API</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">رابط API الأساسي</div>
+                            <input type="text" id="apiBaseUrl" class="form-input" placeholder="https://api.example.com" />
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">مفتاح API</div>
+                            <input type="password" id="apiKey" class="form-input" placeholder="أدخل مفتاح API" />
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">مهلة الاتصال (ثانية)</div>
+                            <input type="number" id="apiTimeout" class="form-input" value="30" min="5" max="120" />
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">إصدار API</div>
+                            <select id="apiVersion" class="form-input">
+                                <option value="v1">الإصدار 1</option>
+                                <option value="v2">الإصدار 2</option>
+                                <option value="v3">الإصدار 3</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>🔐 إعدادات الأمان</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">تشفير البيانات</div>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="enableEncryption" checked />
+                                <span class="checkmark"></span>
+                                تفعيل تشفير البيانات
+                            </label>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">التحقق من SSL</div>
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="verifySSL" checked />
+                                <span class="checkmark"></span>
+                                التحقق من شهادة SSL
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3>📊 إعدادات البيانات</h3>
+                    <div class="detail-grid">
+                        <div class="detail-item">
+                            <div class="detail-label">عدد السзаписей لكل صفحة</div>
+                            <select id="recordsPerPage" class="form-input">
+                                <option value="10">10</option>
+                                <option value="20" selected>20</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                        </div>
+                        <div class="detail-item">
+                            <div class="detail-label">التحديث التلقائي (دقائق)</div>
+                            <input type="number" id="autoRefresh" class="form-input" value="5" min="1" max="60" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-actions">
+                    <button class="btn btn-primary" onclick="testApiConnection()">🔍 اختبار الاتصال</button>
+                    <button class="btn btn-success" onclick="saveSettings()">💾 حفظ الإعدادات</button>
+                    <button class="btn btn-warning" onclick="resetSettings()">🔄 إعادة تعيين</button>
+                    <button class="btn btn-info" onclick="exportSettings()">📤 تصدير الإعدادات</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;" onchange="importSettings(this)" />
+                    <button class="btn btn-secondary" onclick="document.getElementById('importFile').click()">📥 استيراد الإعدادات</button>
+                </div>
+
+                <div id="apiTestResult" class="api-test-result" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/settings.js"></script>
     <script>
         let currentPage = 1;
         let currentToken = localStorage.getItem('adminToken');
@@ -552,10 +734,9 @@
         // تحميل الإحصائيات
         async function loadStatistics() {
             try {
-                const response = await fetch('/api/statistics', {
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    }
+                const apiConfig = getApiConfig();
+                const response = await fetch(`${apiConfig.baseUrl}/api/statistics`, {
+                    headers: apiConfig.headers
                 });
 
                 if (response.ok) {
@@ -583,10 +764,9 @@
             });
 
             try {
-                const response = await fetch(`/api/registrations?${params}`, {
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    }
+                const apiConfig = getApiConfig();
+                const response = await fetch(`${apiConfig.baseUrl}/api/registrations?${params}`, {
+                    headers: apiConfig.headers
                 });
 
                 if (response.ok) {
@@ -804,12 +984,10 @@
             if (!confirm(confirmMessage)) return;
 
             try {
-                const response = await fetch(`/api/registrations/${id}/status`, {
+                const apiConfig = getApiConfig();
+                const response = await fetch(`${apiConfig.baseUrl}/api/registrations/${id}/status`, {
                     method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${currentToken}`
-                    },
+                    headers: apiConfig.headers,
                     body: JSON.stringify({ status: newStatus })
                 });
 
@@ -829,10 +1007,9 @@
         // تصدير إلى Excel
         async function exportToExcel() {
             try {
-                const response = await fetch('/api/export-excel', {
-                    headers: {
-                        'Authorization': `Bearer ${currentToken}`
-                    }
+                const apiConfig = getApiConfig();
+                const response = await fetch(`${apiConfig.baseUrl}/api/export-excel`, {
+                    headers: apiConfig.headers
                 });
 
                 if (response.ok) {
@@ -863,6 +1040,146 @@
         function logout() {
             localStorage.removeItem('adminToken');
             window.location.href = '/login';
+        }
+
+        // فتح نافذة الإعدادات
+        function openSettings() {
+            document.getElementById('settingsModal').style.display = 'block';
+            loadSettings();
+        }
+
+        // إغلاق نافذة الإعدادات
+        function closeSettingsModal() {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+
+        // تحميل الإعدادات من LocalStorage
+        function loadSettings() {
+            const settings = window.apiSettings.load();
+            
+            document.getElementById('apiBaseUrl').value = settings.apiBaseUrl || '';
+            document.getElementById('apiKey').value = settings.apiKey || '';
+            document.getElementById('apiTimeout').value = settings.apiTimeout || 30;
+            document.getElementById('apiVersion').value = settings.apiVersion || 'v1';
+            document.getElementById('enableEncryption').checked = settings.enableEncryption !== false;
+            document.getElementById('verifySSL').checked = settings.verifySSL !== false;
+            document.getElementById('recordsPerPage').value = settings.recordsPerPage || 20;
+            document.getElementById('autoRefresh').value = settings.autoRefresh || 5;
+        }
+
+        // الحصول على الإعدادات المحفوظة
+        function getStoredSettings() {
+            return window.apiSettings.load();
+        }
+
+        // حفظ الإعدادات
+        function saveSettings() {
+            const settings = {
+                apiBaseUrl: document.getElementById('apiBaseUrl').value.trim(),
+                apiKey: document.getElementById('apiKey').value.trim(),
+                apiTimeout: parseInt(document.getElementById('apiTimeout').value) || 30,
+                apiVersion: document.getElementById('apiVersion').value,
+                enableEncryption: document.getElementById('enableEncryption').checked,
+                verifySSL: document.getElementById('verifySSL').checked,
+                recordsPerPage: parseInt(document.getElementById('recordsPerPage').value) || 20,
+                autoRefresh: parseInt(document.getElementById('autoRefresh').value) || 5
+            };
+
+            // التحقق من صحة البيانات
+            const errors = window.apiSettings.validate(settings);
+            if (errors.length > 0) {
+                alert('⚠️ ' + errors.join('\n'));
+                return;
+            }
+
+            if (window.apiSettings.save(settings)) {
+                alert('✅ تم حفظ الإعدادات بنجاح');
+                closeSettingsModal();
+                
+                // تحديث الصفحة لتطبيق الإعدادات الجديدة
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
+            } else {
+                alert('❌ خطأ في حفظ الإعدادات');
+            }
+        }
+
+        // اختبار الاتصال بـ API
+        async function testApiConnection() {
+            const settings = {
+                apiBaseUrl: document.getElementById('apiBaseUrl').value.trim(),
+                apiKey: document.getElementById('apiKey').value.trim(),
+                apiTimeout: parseInt(document.getElementById('apiTimeout').value) || 30
+            };
+            
+            const resultDiv = document.getElementById('apiTestResult');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'api-test-result testing';
+            resultDiv.innerHTML = '🔄 جاري اختبار الاتصال...';
+
+            try {
+                const result = await window.apiSettings.testConnection(settings);
+                
+                if (result.success) {
+                    resultDiv.className = 'api-test-result success';
+                    resultDiv.innerHTML = `✅ تم الاتصال بنجاح! (${result.status})`;
+                } else {
+                    resultDiv.className = 'api-test-result error';
+                    resultDiv.innerHTML = `❌ فشل الاتصال: ${result.status} - ${result.statusText}`;
+                }
+            } catch (error) {
+                resultDiv.className = 'api-test-result error';
+                resultDiv.innerHTML = `❌ خطأ في الاتصال: ${error.message}`;
+            }
+        }
+
+        // إعادة تعيين الإعدادات للقيم الافتراضية
+        function resetSettings() {
+            if (!confirm('هل أنت متأكد من إعادة تعيين جميع الإعدادات للقيم الافتراضية؟')) {
+                return;
+            }
+
+            if (window.apiSettings.reset()) {
+                loadSettings();
+                document.getElementById('apiTestResult').style.display = 'none';
+                alert('✅ تم إعادة تعيين الإعدادات بنجاح');
+            } else {
+                alert('❌ خطأ في إعادة تعيين الإعدادات');
+            }
+        }
+
+        // استخدام إعدادات API في طلبات الشبكة
+        function getApiConfig() {
+            return window.apiSettings.createRequestConfig(currentToken);
+        }
+
+        // تصدير الإعدادات
+        function exportSettings() {
+            try {
+                window.apiSettings.export();
+                alert('✅ تم تصدير الإعدادات بنجاح');
+            } catch (error) {
+                console.error('Error exporting settings:', error);
+                alert('❌ خطأ في تصدير الإعدادات');
+            }
+        }
+
+        // استيراد الإعدادات
+        async function importSettings(input) {
+            const file = input.files[0];
+            if (!file) return;
+
+            try {
+                const imported = await window.apiSettings.import(file);
+                loadSettings();
+                alert('✅ تم استيراد الإعدادات بنجاح');
+                input.value = ''; // إعادة تعيين حقل الملف
+            } catch (error) {
+                console.error('Error importing settings:', error);
+                alert(`❌ خطأ في استيراد الإعدادات: ${error.message}`);
+                input.value = '';
+            }
         }
 
         // دوال مساعدة
@@ -914,9 +1231,15 @@
 
         // إغلاق النافذة المنبثقة عند النقر خارجها
         window.onclick = function(event) {
-            const modal = document.getElementById('detailModal');
-            if (event.target === modal) {
-                modal.style.display = 'none';
+            const detailModal = document.getElementById('detailModal');
+            const settingsModal = document.getElementById('settingsModal');
+            
+            if (event.target === detailModal) {
+                detailModal.style.display = 'none';
+            }
+            
+            if (event.target === settingsModal) {
+                settingsModal.style.display = 'none';
             }
         }
     </script>

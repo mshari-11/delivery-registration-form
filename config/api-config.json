@@ -1,0 +1,37 @@
+{
+  "api": {
+    "baseUrl": "https://api.example.com",
+    "version": "v1",
+    "timeout": 30000,
+    "retryAttempts": 3,
+    "endpoints": {
+      "auth": "/auth",
+      "registrations": "/registrations",
+      "statistics": "/statistics",
+      "export": "/export-excel",
+      "health": "/health"
+    }
+  },
+  "security": {
+    "enableEncryption": true,
+    "verifySSL": true,
+    "apiKeyRequired": false
+  },
+  "ui": {
+    "recordsPerPage": 20,
+    "autoRefresh": 5,
+    "enableNotifications": true,
+    "theme": "default"
+  },
+  "features": {
+    "exportEnabled": true,
+    "bulkOperationsEnabled": true,
+    "advancedSearchEnabled": true,
+    "auditLogEnabled": false
+  },
+  "metadata": {
+    "version": "1.0.0",
+    "lastUpdated": "2025-01-03T12:00:00Z",
+    "description": "إعدادات نظام تسجيل مناديب التوصيل"
+  }
+}
