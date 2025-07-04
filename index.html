@@ -305,6 +305,102 @@
             margin-top: 30px;
         }
         
+        /* تحسينات إضافية للنموذج الشامل */
+        .checkbox-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            cursor: pointer;
+            user-select: none;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .checkbox-container:hover {
+            background-color: rgba(30, 58, 138, 0.05);
+        }
+        
+        .checkbox-container input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+            cursor: pointer;
+            margin-top: 2px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn-print {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-print:hover {
+            background: #5a6268;
+        }
+        
+        .btn-draft {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .btn-draft:hover {
+            background: #e0a800;
+        }
+        
+        .experience-fields {
+            display: none;
+            grid-column: 1/-1;
+        }
+        
+        .bank-fields {
+            display: none;
+            grid-column: 1/-1;
+        }
+        
+        .note-warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        
+        .note-success {
+            background: #d4edda;
+            border: 2px solid #c3e6cb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #155724;
+        }
+        
+        .note-info {
+            background: #d1ecf1;
+            border: 2px solid #bee5eb;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            color: #0c5460;
+        }
+        
+        .signature-section {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 2px solid #dee2e6;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
         /* تصميم متجاوب */
         @media (max-width: 768px) {
             body {
@@ -379,7 +475,7 @@
                     <div id="appDetails" style="display: none;"></div>
                 </div>
                 
-                <!-- البيانات الشخصية -->
+                <!-- البيانات الشخصية الأساسية -->
                 <div class="section">
                     <div class="section-header">
                         <div class="section-icon">
@@ -387,40 +483,624 @@
                                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
                             </svg>
                         </div>
-                        <h3 class="section-title">البيانات الشخصية</h3>
+                        <h3 class="section-title">البيانات الشخصية الأساسية</h3>
                     </div>
                     
-                    <div class="form-group">
-                        <label>الاسم الكامل <span class="required">*</span></label>
-                        <input type="text" name="fullName" required placeholder="أدخل الاسم الكامل">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>الاسم الكامل <span class="required">*</span></label>
+                            <input type="text" name="fullName" required placeholder="أدخل الاسم الكامل رباعي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم الهوية الوطنية <span class="required">*</span></label>
+                            <input type="text" name="nationalId" required placeholder="1xxxxxxxxx" pattern="[12][0-9]{9}" maxlength="10">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>تاريخ الميلاد <span class="required">*</span></label>
+                            <input type="date" name="birthDate" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الجنسية <span class="required">*</span></label>
+                            <select name="nationality" required>
+                                <option value="">-- اختر الجنسية --</option>
+                                <option value="saudi">سعودي</option>
+                                <option value="resident">مقيم</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم الجوال <span class="required">*</span></label>
+                            <input type="tel" name="phone" required placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم جوال بديل</label>
+                            <input type="tel" name="alternativePhone" placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>البريد الإلكتروني <span class="required">*</span></label>
+                            <input type="email" name="email" required placeholder="example@email.com">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم STC Pay <span class="required">*</span></label>
+                            <input type="tel" name="stcPay" required placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العنوان ومعلومات السكن -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">العنوان ومعلومات السكن</h3>
                     </div>
                     
-                    <div class="form-group">
-                        <label>رقم الجوال <span class="required">*</span></label>
-                        <input type="tel" name="phone" required placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>المنطقة/المدينة <span class="required">*</span></label>
+                            <select name="city" required>
+                                <option value="">-- اختر المدينة --</option>
+                                <option value="riyadh">الرياض</option>
+                                <option value="jeddah">جدة</option>
+                                <option value="dammam">الدمام</option>
+                                <option value="mecca">مكة المكرمة</option>
+                                <option value="medina">المدينة المنورة</option>
+                                <option value="taif">الطائف</option>
+                                <option value="khobar">الخبر</option>
+                                <option value="abha">أبها</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الحي <span class="required">*</span></label>
+                            <input type="text" name="district" required placeholder="أدخل اسم الحي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الشارع <span class="required">*</span></label>
+                            <input type="text" name="street" required placeholder="أدخل اسم الشارع">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم المبنى</label>
+                            <input type="text" name="buildingNumber" placeholder="رقم المبنى">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الرمز البريدي</label>
+                            <input type="text" name="postalCode" placeholder="الرمز البريدي" pattern="[0-9]{5}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>الوحدة الإضافية</label>
+                            <input type="text" name="additionalNumber" placeholder="الوحدة الإضافية" pattern="[0-9]{4}">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- معلومات المركبة -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">معلومات المركبة</h3>
                     </div>
                     
-                    <div class="form-group">
-                        <label>البريد الإلكتروني <span class="required">*</span></label>
-                        <input type="email" name="email" required placeholder="example@email.com">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>نوع المركبة <span class="required">*</span></label>
+                            <select name="vehicleType" required>
+                                <option value="">-- اختر نوع المركبة --</option>
+                                <option value="motorcycle">دراجة نارية</option>
+                                <option value="car">سيارة</option>
+                                <option value="bicycle">دراجة هوائية</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>لوحة المركبة <span class="required">*</span></label>
+                            <input type="text" name="plateNumber" required placeholder="أدخل رقم اللوحة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>نوع اللوحة <span class="required">*</span></label>
+                            <select name="plateType" required>
+                                <option value="">-- اختر نوع اللوحة --</option>
+                                <option value="private">خاصة</option>
+                                <option value="transport">نقل</option>
+                                <option value="commercial">تجارية</option>
+                                <option value="temporary">مؤقتة</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>ماركة المركبة <span class="required">*</span></label>
+                            <input type="text" name="vehicleBrand" required placeholder="مثال: تويوتا، هوندا، هيونداي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>موديل المركبة <span class="required">*</span></label>
+                            <input type="text" name="vehicleModel" required placeholder="مثال: كامري، أكورد، النترا">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>سنة الصنع <span class="required">*</span></label>
+                            <select name="vehicleYear" required>
+                                <option value="">-- اختر السنة --</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>لون المركبة <span class="required">*</span></label>
+                            <input type="text" name="vehicleColor" required placeholder="أدخل لون المركبة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم الهيكل (الشاصي)</label>
+                            <input type="text" name="chassisNumber" placeholder="رقم الهيكل (اختياري)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- رخصة القيادة والمستندات -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">رخصة القيادة والمستندات</h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>رقم رخصة القيادة <span class="required">*</span></label>
+                            <input type="text" name="licenseNumber" required placeholder="أدخل رقم رخصة القيادة">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>تاريخ انتهاء الرخصة <span class="required">*</span></label>
+                            <input type="date" name="licenseExpiry" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>نوع رخصة القيادة <span class="required">*</span></label>
+                            <select name="licenseType" required>
+                                <option value="">-- اختر نوع الرخصة --</option>
+                                <option value="private">خاصة</option>
+                                <option value="public">عامة</option>
+                                <option value="motorcycle">دراجة نارية</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة الهوية الوطنية <span class="required">*</span></label>
+                            <input type="file" name="idCopy" required accept="image/*,.pdf" style="padding: 8px;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة رخصة القيادة <span class="required">*</span></label>
+                            <input type="file" name="licenseCopy" required accept="image/*,.pdf" style="padding: 8px;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة الاستمارة <span class="required">*</span></label>
+                            <input type="file" name="vehicleRegistration" required accept="image/*,.pdf" style="padding: 8px;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة شخصية <span class="required">*</span></label>
+                            <input type="file" name="personalPhoto" required accept="image/*" style="padding: 8px;">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صورة التأمين (إن وجد)</label>
+                            <input type="file" name="insuranceCopy" accept="image/*,.pdf" style="padding: 8px;">
+                        </div>
                     </div>
                 </div>
                 
-                <button type="submit" class="btn submit-btn">إرسال التسجيل</button>
+                <!-- البنود والاتفاقيات -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">البنود والاتفاقيات</h3>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; border: 2px solid #dee2e6; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                        <h4 style="color: #495057; margin-bottom: 15px;">📋 بنود العقد الأساسية:</h4>
+                        <div style="line-height: 1.8; color: #6c757d;">
+                            <p><strong>1. التزامات المندوب:</strong></p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>الالتزام بمواعيد العمل المحددة حسب التطبيق المختار</li>
+                                <li>التعامل بأخلاق عالية مع العملاء والمطاعم</li>
+                                <li>المحافظة على نظافة المركبة والمظهر العام</li>
+                                <li>عدم استخدام الهاتف أثناء القيادة</li>
+                                <li>الالتزام بقوانين المرور وأنظمة السلامة</li>
+                            </ul>
+                            
+                            <p><strong>2. الشروط المالية:</strong></p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>تسليم المبالغ المحصلة حسب الجدول المحدد لكل تطبيق</li>
+                                <li>تحمل تكاليف الوقود والصيانة الأساسية</li>
+                                <li>دفع رسوم الاشتراك إن وجدت</li>
+                                <li>المسؤولية عن أي نقص في المبالغ المحصلة</li>
+                            </ul>
+                            
+                            <p><strong>3. شروط الإنهاء:</strong></p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>يحق للطرفين إنهاء التعاقد بإشعار مسبق 30 يوم</li>
+                                <li>في حالة الإخلال بالشروط يحق للشركة الإنهاء الفوري</li>
+                                <li>تسوية جميع المستحقات المالية عند الإنهاء</li>
+                            </ul>
+                            
+                            <p><strong>4. المسؤوليات:</strong></p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>المندوب مسؤول عن سلامة الطعام أثناء التوصيل</li>
+                                <li>الإبلاغ عن أي حوادث أو مشاكل فوراً</li>
+                                <li>احترام سياسة الخصوصية للعملاء</li>
+                                <li>عدم إفشاء أسرار العمل أو بيانات العملاء</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container" style="font-weight: bold; color: var(--primary-color);">
+                            <input type="checkbox" name="agreeTerms" required>
+                            <span style="margin-right: 10px;">أوافق على جميع البنود والشروط المذكورة أعلاه <span class="required">*</span></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container" style="font-weight: bold; color: var(--primary-color);">
+                            <input type="checkbox" name="agreePrivacy" required>
+                            <span style="margin-right: 10px;">أوافق على سياسة الخصوصية ومعالجة البيانات الشخصية <span class="required">*</span></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container" style="font-weight: bold; color: var(--primary-color);">
+                            <input type="checkbox" name="agreeResponsibility" required>
+                            <span style="margin-right: 10px;">أتحمل المسؤولية الكاملة عن صحة البيانات المقدمة <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- سند الأمر -->
+                <div class="section" id="promissoryNoteSection" style="display: none;">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #dc3545;">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M9,3V4H4V6H5V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V6H20V4H15V3H9M7,6H17V19H7V6M9,8V17H11V8H9M13,8V17H15V8H13Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">⚠️ سند الأمر</h3>
+                    </div>
+                    
+                    <div style="background: #fff3cd; border: 2px solid #ffc107; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                        <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                            <span style="font-size: 24px; margin-left: 10px;">⚠️</span>
+                            <h4 style="color: #856404; margin: 0;">تنبيه مهم - سند الأمر</h4>
+                        </div>
+                        
+                        <div style="line-height: 1.8; color: #856404;">
+                            <p><strong>قيمة السند: <span id="promissoryAmount" style="color: #dc3545; font-size: 18px;">5,000 ريال</span></strong></p>
+                            
+                            <p><strong>شروط سند الأمر:</strong></p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>سند الأمر ضمان لحسن تنفيذ التزامات المندوب</li>
+                                <li>يُستخدم في حالة عدم تسليم المبالغ المحصلة في المواعيد المحددة</li>
+                                <li>يُستخدم في حالة الإضرار بممتلكات الشركة أو العملاء</li>
+                                <li>يُعاد السند عند انتهاء التعاقد وتسوية جميع المستحقات</li>
+                                <li>السند قابل للتنفيذ قانونياً وفقاً للأنظمة السعودية</li>
+                            </ul>
+                            
+                            <div style="background: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; padding: 15px; margin-top: 15px;">
+                                <p style="color: #721c24; font-weight: bold; margin: 0;">
+                                    📝 ملاحظة: سيتم توقيع سند الأمر عند زيارة الفرع لاستكمال الإجراءات
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container" style="font-weight: bold; color: #dc3545;">
+                            <input type="checkbox" name="agreePromissoryNote" id="agreePromissoryNote">
+                            <span style="margin-right: 10px;">أوافق على شروط سند الأمر وأتعهد بتوقيعه عند زيارة الفرع <span class="required">*</span></span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- معلومات الطوارئ والمراجع -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">معلومات الطوارئ والمراجع</h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>اسم جهة الاتصال في الطوارئ <span class="required">*</span></label>
+                            <input type="text" name="emergencyContactName" required placeholder="اسم الشخص المرجعي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>رقم جهة الاتصال في الطوارئ <span class="required">*</span></label>
+                            <input type="tel" name="emergencyContactPhone" required placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>صلة القرابة <span class="required">*</span></label>
+                            <select name="emergencyContactRelation" required>
+                                <option value="">-- اختر صلة القرابة --</option>
+                                <option value="father">الوالد</option>
+                                <option value="mother">الوالدة</option>
+                                <option value="brother">الأخ</option>
+                                <option value="sister">الأخت</option>
+                                <option value="spouse">الزوج/الزوجة</option>
+                                <option value="friend">صديق</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>مرجع شخصي - الاسم</label>
+                            <input type="text" name="referenceName" placeholder="اسم المرجع الشخصي">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>مرجع شخصي - رقم الجوال</label>
+                            <input type="tel" name="referencePhone" placeholder="05XXXXXXXX" pattern="05[0-9]{8}">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>مرجع شخصي - صلة القرابة</label>
+                            <select name="referenceRelation">
+                                <option value="">-- اختر صلة القرابة --</option>
+                                <option value="relative">قريب</option>
+                                <option value="friend">صديق</option>
+                                <option value="colleague">زميل عمل</option>
+                                <option value="neighbor">جار</option>
+                                <option value="other">أخرى</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- معلومات العمل السابق -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M14,6V4H10V6H8V10H6V12H8V16H10V12H14V10H16V6H14M10,8H14V10H10V8Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">الخبرة في مجال التوصيل</h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>هل لديك خبرة سابقة في التوصيل؟ <span class="required">*</span></label>
+                            <select name="hasExperience" required onchange="toggleExperienceFields(this.value)">
+                                <option value="">-- اختر --</option>
+                                <option value="yes">نعم</option>
+                                <option value="no">لا</option>
+                            </select>
+                        </div>
+                        
+                        <div id="experienceFields" class="experience-fields">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label>اسم الشركة/التطبيق السابق</label>
+                                    <input type="text" name="previousCompany" placeholder="مثال: جاهز، مرسول، هنقرستيشن">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>مدة العمل (بالأشهر)</label>
+                                    <input type="number" name="experienceDuration" placeholder="عدد الأشهر" min="1" max="120">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>سبب ترك العمل السابق</label>
+                                    <select name="leavingReason">
+                                        <option value="">-- اختر السبب --</option>
+                                        <option value="better_opportunity">فرصة أفضل</option>
+                                        <option value="salary">الراتب</option>
+                                        <option value="working_hours">ساعات العمل</option>
+                                        <option value="company_closure">إغلاق الشركة</option>
+                                        <option value="other">أخرى</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>تقييمك الشخصي لأدائك السابق</label>
+                                    <select name="selfRating">
+                                        <option value="">-- اختر التقييم --</option>
+                                        <option value="excellent">ممتاز</option>
+                                        <option value="very_good">جيد جداً</option>
+                                        <option value="good">جيد</option>
+                                        <option value="fair">مقبول</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- تفاصيل البنك وطريقة الدفع -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M11.5,1L2,6V8H21V6M16,10V17H19V10M2,22H21V19H2M10,10V17H13V10M4,10V17H7V10H4Z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">تفاصيل البنك وطريقة الدفع</h3>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                        <div class="form-group">
+                            <label>طريقة استلام الراتب <span class="required">*</span></label>
+                            <select name="paymentMethod" required onchange="toggleBankFields(this.value)">
+                                <option value="">-- اختر طريقة الدفع --</option>
+                                <option value="bank_transfer">تحويل بنكي</option>
+                                <option value="cash">نقدي</option>
+                                <option value="stc_pay">STC Pay</option>
+                            </select>
+                        </div>
+                        
+                        <div id="bankFields" class="bank-fields">
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                                <div class="form-group">
+                                    <label>اسم البنك</label>
+                                    <select name="bankName">
+                                        <option value="">-- اختر البنك --</option>
+                                        <option value="alrajhi">مصرف الراجحي</option>
+                                        <option value="ncb">الأهلي التجاري</option>
+                                        <option value="samba">سامبا</option>
+                                        <option value="riyad">الرياض</option>
+                                        <option value="anb">العربي الوطني</option>
+                                        <option value="alinma">الإنماء</option>
+                                        <option value="alahli">الأهلي</option>
+                                        <option value="jazira">الجزيرة</option>
+                                        <option value="other">أخرى</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>رقم الحساب البنكي (IBAN)</label>
+                                    <input type="text" name="iban" placeholder="SA00 0000 0000 0000 0000 0000" pattern="SA[0-9]{22}">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>اسم صاحب الحساب</label>
+                                    <input type="text" name="accountHolderName" placeholder="يجب أن يطابق الاسم في الهوية">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- إقرارات نهائية -->
+                <div class="section">
+                    <div class="section-header">
+                        <div class="section-icon" style="background: #28a745;">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            </svg>
+                        </div>
+                        <h3 class="section-title">الإقرارات النهائية</h3>
+                    </div>
+                    
+                    <div style="background: #d4edda; border: 2px solid #c3e6cb; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+                        <h4 style="color: #155724; margin-bottom: 15px;">📝 إقرار المتقدم:</h4>
+                        <div style="line-height: 1.8; color: #155724;">
+                            <p>أقر أنا الموقع أدناه بأن:</p>
+                            <ul style="margin: 10px 0 15px 20px;">
+                                <li>جميع المعلومات المقدمة في هذا النموذج صحيحة ودقيقة</li>
+                                <li>أتحمل المسؤولية الكاملة عن صحة هذه المعلومات</li>
+                                <li>أوافق على التحقق من صحة المعلومات المقدمة</li>
+                                <li>أفهم أن أي معلومات خاطئة قد تؤدي إلى رفض الطلب</li>
+                                <li>أوافق على الشروط والأحكام الخاصة بالتطبيق المختار</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container" style="font-weight: bold; color: var(--success-color);">
+                            <input type="checkbox" name="finalAgreement" required>
+                            <span style="margin-right: 10px;">أقر بصحة جميع المعلومات المقدمة وأوافق على جميع الشروط <span class="required">*</span></span>
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>التوقيع الإلكتروني <span class="required">*</span></label>
+                        <input type="text" name="digitalSignature" required placeholder="اكتب اسمك الكامل كتوقيع إلكتروني">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>التاريخ</label>
+                        <input type="date" name="signatureDate" readonly style="background: #f8f9fa;">
+                    </div>
+                </div>
+
+                <!-- أزرار الإجراءات -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-print" onclick="printForm()">
+                        🖨️ طباعة النموذج
+                    </button>
+                    <button type="button" class="btn btn-draft" onclick="saveAsDraft()">
+                        💾 حفظ كمسودة
+                    </button>
+                    <button type="submit" class="btn submit-btn">
+                        📤 إرسال التسجيل
+                    </button>
+                </div>
             </form>
         </div>
     </div>
     
     <script>
-        // عرض تفاصيل التطبيق عند الاختيار
+        // تعيين التاريخ الحالي عند تحميل الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const signatureDateField = document.querySelector('input[name="signatureDate"]');
+            if (signatureDateField) {
+                signatureDateField.value = today;
+            }
+            
+            // ملء سنوات الصنع
+            const yearSelect = document.querySelector('select[name="vehicleYear"]');
+            if (yearSelect) {
+                const currentYear = new Date().getFullYear();
+                for(let year = currentYear; year >= 2010; year--) {
+                    const option = document.createElement('option');
+                    option.value = year;
+                    option.textContent = year;
+                    yearSelect.appendChild(option);
+                }
+            }
+            
+            loadDraft();
+        });
+
+        // عرض تفاصيل التطبيق وتحديث قيمة سند الأمر
         function showAppDetails() {
             const app = document.getElementById('appSelect').value;
             const detailsContainer = document.getElementById('appDetails');
+            const promissorySection = document.getElementById('promissoryNoteSection');
+            const promissoryAmount = document.getElementById('promissoryAmount');
+            const promissoryCheckbox = document.getElementById('agreePromissoryNote');
             
             let details = '';
+            let showPromissory = true;
+            let amount = '5,000 ريال';
             
             switch(app) {
                 case 'kita-shift':
+                    amount = '5,000 ريال';
                     details = `
                         <div style="background: #e6f3ff; border: 2px solid #0066cc; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #0066cc; margin-bottom: 15px;">🏢 شروط كيتا - نظام دوام:</h4>
@@ -429,13 +1109,14 @@
                                 <li>✅ فترات العمل: الغداء (11ص-3م) والعشاء (7م-11م)</li>
                                 <li>✅ 26 يوم عمل بالشهر كحد أدنى</li>
                                 <li>✅ رسوم التوصيل: 10% من قيمة التسعيرة</li>
-                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
                             </ul>
                         </div>
                     `;
                     break;
                     
                 case 'kita-demand':
+                    amount = '5,000 ريال';
                     details = `
                         <div style="background: #e6f3ff; border: 2px solid #0066cc; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #0066cc; margin-bottom: 15px;">📱 شروط كيتا - نظام بالطلب:</h4>
@@ -444,13 +1125,14 @@
                                 <li>✅ لا تقل عن 10 ساعات يومياً</li>
                                 <li>✅ عدم رفض الطلبات لمدة 10 ساعات</li>
                                 <li>✅ رسوم التوصيل: 10% من قيمة التسعيرة</li>
-                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
                             </ul>
                         </div>
                     `;
                     break;
                     
                 case 'jahez':
+                    amount = '2,000 ريال';
                     details = `
                         <div style="background: #fff3e0; border: 2px solid #ff9800; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #ff9800; margin-bottom: 15px;">🍔 شروط جاهز:</h4>
@@ -459,13 +1141,14 @@
                                 <li>✅ تسليم المبالغ عند 2,000 ريال</li>
                                 <li>✅ رسوم الاشتراك: 200 ريال</li>
                                 <li>✅ مرونة في اختيار الطلبات</li>
-                                <li>⚠️ قيمة السند لأمر: 2,000 ريال</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
                             </ul>
                         </div>
                     `;
                     break;
                     
                 case 'thechefz':
+                    amount = '5,000 ريال';
                     details = `
                         <div style="background: #f3e5f5; border: 2px solid #9c27b0; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #9c27b0; margin-bottom: 15px;">👨‍🍳 شروط ذا شفز:</h4>
@@ -474,13 +1157,14 @@
                                 <li>✅ تسليم المبالغ عند 5,000 ريال</li>
                                 <li>✅ 8 ساعات عمل يومياً، 26 يوم بالشهر</li>
                                 <li>✅ التزام بفتح التطبيق تلقائياً</li>
-                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
                             </ul>
                         </div>
                     `;
                     break;
                     
                 case 'mrsool':
+                    showPromissory = false;
                     details = `
                         <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #4caf50; margin-bottom: 15px;">🚚 شروط مرسول:</h4>
@@ -495,6 +1179,7 @@
                     break;
                     
                 case 'tuyodelivery':
+                    amount = '5,000 ريال';
                     details = `
                         <div style="background: #fce4ec; border: 2px solid #e91e63; border-radius: 10px; padding: 20px; margin-top: 20px;">
                             <h4 style="color: #e91e63; margin-bottom: 15px;">🏍️ شروط تويو للتوصيل:</h4>
@@ -503,7 +1188,39 @@
                                 <li>✅ تسليم المبالغ عند 5,000 ريال</li>
                                 <li>✅ 25 يوم عمل بالشهر كحد أدنى</li>
                                 <li>✅ التقييم المطلوب: 4+ نجوم</li>
-                                <li>⚠️ قيمة السند لأمر: 5,000 ريال</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'careem':
+                    amount = '3,000 ريال';
+                    details = `
+                        <div style="background: #e8f5e8; border: 2px solid #00a652; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #00a652; margin-bottom: 15px;">🥘 شروط كريم فود:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ العمولة: متغيرة حسب المنطقة</li>
+                                <li>✅ نظام تقييم النجوم</li>
+                                <li>✅ مرونة في اختيار ساعات العمل</li>
+                                <li>✅ دعم فني 24/7</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
+                            </ul>
+                        </div>
+                    `;
+                    break;
+                    
+                case 'noon':
+                    amount = '4,000 ريال';
+                    details = `
+                        <div style="background: #fff7e6; border: 2px solid #fa8c16; border-radius: 10px; padding: 20px; margin-top: 20px;">
+                            <h4 style="color: #fa8c16; margin-bottom: 15px;">🛒 شروط نون فود:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>✅ نظام الطلبات السريعة</li>
+                                <li>✅ تغطية واسعة للمناطق</li>
+                                <li>✅ نظام المكافآت والحوافز</li>
+                                <li>✅ التدريب المستمر</li>
+                                <li>⚠️ قيمة السند لأمر: ${amount}</li>
                             </ul>
                         </div>
                     `;
@@ -511,24 +1228,139 @@
                     
                 default:
                     details = '';
+                    showPromissory = false;
             }
             
+            // عرض التفاصيل
             if(app) {
                 detailsContainer.innerHTML = details;
                 detailsContainer.style.display = 'block';
             } else {
                 detailsContainer.style.display = 'none';
             }
+            
+            // عرض/إخفاء قسم سند الأمر
+            if(showPromissory && app && promissorySection) {
+                promissorySection.style.display = 'block';
+                if (promissoryAmount) promissoryAmount.textContent = amount;
+                if (promissoryCheckbox) promissoryCheckbox.required = true;
+            } else if (promissorySection) {
+                promissorySection.style.display = 'none';
+                if (promissoryCheckbox) {
+                    promissoryCheckbox.required = false;
+                    promissoryCheckbox.checked = false;
+                }
+            }
         }
-        
-        // ربط الدالة بقائمة التطبيقات
+
+        // إظهار/إخفاء حقول الخبرة
+        function toggleExperienceFields(value) {
+            const experienceFields = document.getElementById('experienceFields');
+            if(experienceFields) {
+                if(value === 'yes') {
+                    experienceFields.style.display = 'block';
+                } else {
+                    experienceFields.style.display = 'none';
+                }
+            }
+        }
+
+        // إظهار/إخفاء حقول البنك
+        function toggleBankFields(value) {
+            const bankFields = document.getElementById('bankFields');
+            if(bankFields) {
+                if(value === 'bank_transfer') {
+                    bankFields.style.display = 'block';
+                    // جعل حقول البنك مطلوبة
+                    const bankName = document.querySelector('select[name="bankName"]');
+                    const iban = document.querySelector('input[name="iban"]');
+                    const accountHolder = document.querySelector('input[name="accountHolderName"]');
+                    if (bankName) bankName.required = true;
+                    if (iban) iban.required = true;
+                    if (accountHolder) accountHolder.required = true;
+                } else {
+                    bankFields.style.display = 'none';
+                    // إلغاء required من حقول البنك
+                    const bankName = document.querySelector('select[name="bankName"]');
+                    const iban = document.querySelector('input[name="iban"]');
+                    const accountHolder = document.querySelector('input[name="accountHolderName"]');
+                    if (bankName) bankName.required = false;
+                    if (iban) iban.required = false;
+                    if (accountHolder) accountHolder.required = false;
+                }
+            }
+        }
+
+        // طباعة النموذج
+        function printForm() {
+            window.print();
+        }
+
+        // حفظ كمسودة
+        function saveAsDraft() {
+            const formData = new FormData(document.getElementById('deliveryForm'));
+            const draftData = {};
+            
+            for (let [key, value] of formData.entries()) {
+                if (value instanceof File) {
+                    draftData[key] = value.name; // حفظ اسم الملف فقط
+                } else {
+                    draftData[key] = value;
+                }
+            }
+            
+            localStorage.setItem('deliveryFormDraft', JSON.stringify(draftData));
+            alert('💾 تم حفظ النموذج كمسودة!');
+        }
+
+        // تحميل المسودة عند تحميل الصفحة
+        function loadDraft() {
+            const savedDraft = localStorage.getItem('deliveryFormDraft');
+            if (savedDraft) {
+                if (confirm('تم العثور على مسودة محفوظة. هل تريد تحميلها؟')) {
+                    const draftData = JSON.parse(savedDraft);
+                    
+                    // ملء الحقول المحفوظة
+                    for (let [key, value] of Object.entries(draftData)) {
+                        const element = document.querySelector(`[name="${key}"]`);
+                        if (element) {
+                            if (element.type === 'checkbox') {
+                                element.checked = value === 'on';
+                            } else if (element.type !== 'file') {
+                                element.value = value;
+                            }
+                        }
+                    }
+                    
+                    // تحديث العرض
+                    showAppDetails();
+                } else {
+                    localStorage.removeItem('deliveryFormDraft');
+                }
+            }
+        }
+
+        // ربط الأحداث
         document.getElementById('appSelect').addEventListener('change', showAppDetails);
         
         // إرسال النموذج
         document.getElementById('deliveryForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
+            // التحقق من التوقيع الإلكتروني
+            const digitalSignature = document.querySelector('input[name="digitalSignature"]').value;
+            const fullName = document.querySelector('input[name="fullName"]').value;
+            
+            if (digitalSignature.toLowerCase() !== fullName.toLowerCase()) {
+                alert('⚠️ يجب أن يطابق التوقيع الإلكتروني الاسم الكامل المدخل');
+                return;
+            }
+            
             const formData = new FormData(e.target);
+            
+            // إضافة معرف فريد للنموذج
+            const formId = 'FORM-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+            formData.append('formNumber', formId);
             
             try {
                 const response = await fetch('/submit', {
@@ -537,9 +1369,17 @@
                 });
                 
                 if (response.ok) {
-                    alert('🎉 تم إرسال التسجيل بنجاح! سيتم التواصل معك قريباً.');
+                    const result = await response.json();
+                    alert(`🎉 تم إرسال التسجيل بنجاح!\nرقم التسجيل: ${result.formNumber || formId}\nسيتم التواصل معك قريباً.`);
+                    
+                    // حذف المسودة عند الإرسال بنجاح
+                    localStorage.removeItem('deliveryFormDraft');
+                    
                     e.target.reset();
-                    document.getElementById('appDetails').style.display = 'none';
+                    const appDetails = document.getElementById('appDetails');
+                    const promissorySection = document.getElementById('promissoryNoteSection');
+                    if (appDetails) appDetails.style.display = 'none';
+                    if (promissorySection) promissorySection.style.display = 'none';
                 } else {
                     alert('❌ حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى.');
                 }
